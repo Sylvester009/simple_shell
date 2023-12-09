@@ -5,8 +5,6 @@ void exe_command_i(void) {
     char **args;
     int status;
 
-    size_t bufsize = 0;
-
     do {
         printf("($) ");
         command = read_command();
@@ -33,6 +31,8 @@ void exe_command_nil(char *filename) {
     char *command;
     char **args;
     int status;
+
+  size_t bufsize = 0;
 
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
