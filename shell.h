@@ -22,4 +22,6 @@ char **splitLine(char *command);
 void exe_command_i(void);
 void exe_command_nil(char *filename);
 
+char *find_command_path(const char *command);
+
 #endif /* SHELL_H */
