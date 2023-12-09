@@ -1,34 +1,34 @@
 #include "shell.h"
 
 void exe_command_i(void) {
-    char *line;
+    char *command;
     char **args;
     int status;
 
     do {
         printf("($) ");
-        line = read_line();
-        args = split_line(line);
+        command = read_command();
+        args = spliLine(command);
 
         if (args[0] != NULL) {
             if (strcmp(args[0], "exit") == 0) {
-                free(line);
+                free(command);
                 free(args);
                 exit(EXIT_SUCCESS);
             }
 
-            status = execute_command(args);
+            status = exe_command(args);
         } else {
             status = 1;  /** Empty command, continue the loop*/
         }
 
-        free(line);
+        free(command);
         free(args);
     } while (status);
 }
 
 void exe_command_nil(char *filename) {
-    char *line;
+    char *command;
     char **args;
     int status;
 
@@ -39,13 +39,13 @@ void exe_command_nil(char *filename) {
     }
 
     size_t bufsize = 0;
-    while (getline(&line, &bufsize, file) != -1) {
-        args = split_line(line);
-        status = execute_command(args);
+    while (getline(&command, &bufsize, file) != -1) {
+        args = splitLine(line);
+        status = exe_command(args);
 
         free(args);
     }
 
     fclose(file);
-    free(line);
+    free(command);
 }
