@@ -7,6 +7,14 @@ int exe_command(char **args) {
     pid_t pid;
     int status;
 
+    char *command_path = find_command_path(args[0]);
+
+    if (command_path == NULL) {
+        fprintf(stderr, "Shell: Command not found: %s\n", args[0]);
+        return 1;
+    }
+
+
     pid = fork();
     if (pid == 0) {
         /* Child process */
