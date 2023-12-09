@@ -9,7 +9,7 @@ int main(void) {
         printf("$ ");
         command = read_command();
         args = splitLine(command);
-        status = execute_command(args);
+        status = exe_command(args);
 
         free(command);
         free(args);
