@@ -4,9 +4,10 @@
 
 int main(int argc, char *argv[]) {
     if (argc == 1) {
-        // Interactive mode
+        
         char *line;
         char **args;
+        int status;
 
       size_t bufsize = 0;
 
@@ -18,18 +19,17 @@ int main(int argc, char *argv[]) {
             if (args[0] != NULL) {
                 status = execute_command(args);
             } else {
-                status = 1;  // Empty command, continue the loop
+                status = 1;  /* Empty command, continue the loop*/
             }
 
             free(line);
             free(args);
         } while (status);
     } else if (argc == 2) {
-        // Non-interactive mode
+       
         char *filename = argv[1];
         char *line;
         char **args;
-        int status;
 
         FILE *file = fopen(filename, "r");
         if (file == NULL) {
