@@ -16,7 +16,7 @@ int exe_command(char **args) {
             exit(EXIT_SUCCESS);
         } else if (strcmp(args[0], "env") == 0) {
             /* Handle the env built-in command */
-            *env_variable = environ;
+            env_variable = environ;
             while (*env_variable != NULL) {
                 env_variable++;
             }
