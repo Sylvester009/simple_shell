@@ -2,7 +2,7 @@
 
 /* Function to execute a command */
 int execute_command(char **args) {
-    pid_t pid, wpid;
+    pid_t pid;
     int status;
 
     pid = fork();
