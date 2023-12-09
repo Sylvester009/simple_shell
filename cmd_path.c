@@ -26,7 +26,7 @@ char *find_command_path(const char *command) {
         sprintf(command_path, "%s/%s", token, command);
 
         if (access(command_path, X_OK) == 0) {
-            // Found the executable in the current path
+            /* Found the executable in the current path*/
             free(temp_path);
             return command_path;
         }
