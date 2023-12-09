@@ -1,3 +1,5 @@
+#include "shell.h"
+
 char *find_command_path(const char *command) {
     char *path = getenv("PATH");
     char *token, *temp_path;
