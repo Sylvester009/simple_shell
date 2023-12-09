@@ -11,13 +11,13 @@
 #include <fcntl.h>
 
 #define BUFSIZE 1024
-#define DELIM " \t\r\n\a"
+#define DELIMETER " \t\r\n\a"
 
 extern char **environ;
 
 /* Function prototypes */
-int execute_command(char **args);
-char *read_line(void);
-char **split_line(char *line);
+int exe_command(char **args);
+char *read_command(void);
+char **splitLine(char *command);
 
 #endif /* SHELL_H */
