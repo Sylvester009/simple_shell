@@ -8,7 +8,7 @@ void exe_command_i(void) {
     do {
         printf("($) ");
         command = read_command();
-        args = spliLine(command);
+        args = splitLine(command);
 
         if (args[0] != NULL) {
             if (strcmp(args[0], "exit") == 0) {
