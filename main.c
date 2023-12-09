@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
 
         do {
             printf("$ ");
-            command = _getline();
+            command = read_command();
             args = splitLine(command);
 
             if (args[0] != NULL) {
