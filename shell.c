@@ -1,5 +1,7 @@
 #include "shell.h"
 
+extern char **environ;
+
 /* Function to execute a command */
 int exe_command(char **args) {
     pid_t pid;
