@@ -19,5 +19,7 @@ extern char **environ;
 int exe_command(char **args);
 char *read_command(void);
 char **splitLine(char *command);
+void exe_command_i(void);
+void exe_command_nil(void);
 
 #endif /* SHELL_H */
