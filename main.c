@@ -9,7 +9,6 @@ int main(int argc, char *argv[]) {
         char **args;
         int status;
 
-      size_t bufsize = 0;
 
         do {
             printf("($) ");
@@ -30,6 +29,8 @@ int main(int argc, char *argv[]) {
         char *filename = argv[1];
         char *line;
         char **args;
+
+        size_t bufsize = 0;
 
         FILE *file = fopen(filename, "r");
         if (file == NULL) {
