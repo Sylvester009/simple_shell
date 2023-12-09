@@ -30,7 +30,7 @@ char *read_command(void) {
     char *command = NULL;
     size_t bufsize = 0;
 
-    if (getline(&line, &bufsize, stdin) == -1) {
+    if (getline(&command, &bufsize, stdin) == -1) {
         if (feof(stdin)) {
             exit(EXIT_SUCCESS);  /* Ctrl-D pressed, exit the shell */
         } else {
