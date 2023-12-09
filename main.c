@@ -11,7 +11,7 @@ int main(void) {
         args = splitLine(command);
         if (args[0] != NULL) {
             if (strcmp(args[0], "exit") == 0) {
-                free(line);
+                free(command);
                 free(args);
                 exit(EXIT_SUCCESS);
             }
