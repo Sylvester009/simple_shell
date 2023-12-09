@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /* Function to execute a command */
-int execute_command(char **args) {
+int exe_command(char **args) {
     pid_t pid;
     int status;
 
@@ -9,12 +9,12 @@ int execute_command(char **args) {
     if (pid == 0) {
         /* Child process */
         if (execve(args[0], args, environ) == -1) {
-            perror("shell");
+            perror("error");
         }
         exit(EXIT_FAILURE);
     } else if (pid < 0) {
         /* Forking error */
-        perror("shell");
+        perror("error");
     } else {
         /* Parent process */
         do {
@@ -22,19 +22,19 @@ int execute_command(char **args) {
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     }
 
-    return 1;
+    return (1);
 }
 
 /* Function to read a line from the console */
-char *read_line(void) {
-    char *line = NULL;
+char *read_command(void) {
+    char *command = NULL;
     size_t bufsize = 0;
 
     if (getline(&line, &bufsize, stdin) == -1) {
         if (feof(stdin)) {
             exit(EXIT_SUCCESS);  /* Ctrl-D pressed, exit the shell */
         } else {
-            perror("read_line");
+            perror("read_command");
             exit(EXIT_FAILURE);
         }
     }
@@ -43,17 +43,17 @@ char *read_line(void) {
 }
 
 /* Function to split a line into tokens */
-char **split_line(char *line) {
+char **splitLine(char *command) {
     int bufsize = BUFSIZE, position = 0;
     char **tokens = malloc(bufsize * sizeof(char *));
     char *token;
 
     if (!tokens) {
-        perror("split_line");
+        perror("splitLine error");
         exit(EXIT_FAILURE);
     }
 
-    token = strtok(line, DELIM);
+    token = strtok(command, DELIM);
     while (token != NULL) {
         tokens[position] = token;
         position++;
@@ -62,7 +62,7 @@ char **split_line(char *line) {
             bufsize += BUFSIZE;
             tokens = realloc(tokens, bufsize * sizeof(char *));
             if (!tokens) {
-                perror("split_line");
+                perror("splitLine error");
                 exit(EXIT_FAILURE);
             }
         }
