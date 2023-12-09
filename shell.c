@@ -39,7 +39,7 @@ char *read_command(void) {
         }
     }
 
-    return line;
+    return command;
 }
 
 /* Function to split a line into tokens */
