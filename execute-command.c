@@ -18,6 +18,7 @@ int exe_command(char **args) {
             /* Handle the env built-in command */
             env_variable = environ;
             while (*env_variable != NULL) {
+                printf("%s\n", *env_variable);
                 env_variable++;
             }
             return 1;
