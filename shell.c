@@ -1,30 +1,28 @@
-
-
 #include "shell.h"
 
 extern char **environ;
 
-int execute_command(char **args) {
+int exe_command(char **args) {
     pid_t pid;
     int status;
 
-    char *command_path = find_command_path(args[0]);
+    char *cmd_path = command_path(args[0]);
 
-    if (command_path == NULL) {
+    if (cmd_path == NULL) {
         fprintf(stderr, "Shell: Command not found: %s\n", args[0]);
-        return 1;
+        return (1);
     }
 
     pid = fork();
     if (pid == 0) {
         /* Child process */
-        if (execve(command_path, args, environ) == -1) {
-            perror("shell");
+        if (execve(cmd_path, args, environ) == -1) {
+            perror("error");
         }
         exit(EXIT_FAILURE);
     } else if (pid < 0) {
         /* Forking error */
-        perror("shell");
+        perror("error");
     } else {
         /* Parent process */
         do {
@@ -32,14 +30,14 @@ int execute_command(char **args) {
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     }
 
-    free(command_path);
-    return 1;
+    free(cmd_path);
+    return (1);
 }
 
-char *find_command_path(const char *command) {
+char *command_path(const char *comm) {
     char *path = getenv("PATH");
     char *token, *temp_path;
-    char *command_path = NULL;
+    char *cmd_path = NULL;
 
     if (path == NULL) {
         fprintf(stderr, "Shell: PATH environment variable not set\n");
@@ -48,62 +46,62 @@ char *find_command_path(const char *command) {
 
     temp_path = strdup(path);
     if (temp_path == NULL) {
-        perror("shell");
+        perror("error");
         exit(EXIT_FAILURE);
     }
 
     token = strtok(temp_path, ":");
     while (token != NULL) {
-        command_path = malloc(strlen(token) + strlen(command) + 2);
-        if (command_path == NULL) {
-            perror("shell");
+        cmd_path = malloc(strlen(token) + strlen(comm) + 2);
+        if (cmd_path == NULL) {
+            perror("error");
             exit(EXIT_FAILURE);
         }
-        sprintf(command_path, "%s/%s", token, command);
+        sprintf(cmd_path, "%s/%s", token, comm);
 
-        if (access(command_path, F_OK | X_OK) == 0) {
+        if (access(cmd_path, F_OK | X_OK) == 0) {
             /* Found the executable in the current path*/
             free(temp_path);
-            return command_path;
+            return (cmd_path);
         }
 
-        free(command_path);
+        free(cmd_path);
         token = strtok(NULL, ":");
     }
 
     free(temp_path);
-    fprintf(stderr, "Shell: Command not found in PATH: %s\n", command);
+    fprintf(stderr, "Shell: Command not found in PATH: %s\n", comm);
     return NULL;
 }
 
-char *read_line(void) {
-    char *line = NULL;
+char *read_command(void) {
+    char *command = NULL;
     size_t bufsize = 0;
 
-    if (getline(&line, &bufsize, stdin) == -1) {
+    if (getline(&command, &bufsize, stdin) == -1) {
         if (feof(stdin)) {
             fprintf(stderr, "Shell: Exiting...\n");
             exit(EXIT_SUCCESS);  /* Ctrl-D pressed, exit the shell */
         } else {
-            perror("read_line");
+            perror("read_command");
             exit(EXIT_FAILURE);
         }
     }
 
-    return line;
+    return (command);
 }
 
-char **split_line(char *line) {
+char **splitLine(char *command) {
     int bufsize = BUFSIZE, position = 0;
     char **tokens = malloc(bufsize * sizeof(char *));
     char *token;
 
     if (!tokens) {
-        perror("split_line");
+        perror("splitLine");
         exit(EXIT_FAILURE);
     }
 
-    token = strtok(line, DELIM);
+    token = strtok(line, DELIMETER);
     while (token != NULL) {
         tokens[position] = token;
         position++;
@@ -112,13 +110,13 @@ char **split_line(char *line) {
             bufsize += BUFSIZE;
             tokens = realloc(tokens, bufsize * sizeof(char *));
             if (!tokens) {
-                perror("split_line");
+                perror("splitLine");
                 exit(EXIT_FAILURE);
             }
         }
 
-        token = strtok(NULL, DELIM);
+        token = strtok(NULL, DELIMETER);
     }
     tokens[position] = NULL;
-    return tokens;
+    return (tokens);
 }
