@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
         FILE *file = fopen(filename, "r");
         if (file == NULL) {
             perror("Error");
-            return (FAILURE);
+            return (EXIT_FAILURE);
         }
 
         
@@ -51,5 +51,5 @@ int main(int argc, char *argv[]) {
         return (EXIT_FAILURE);
     }
 
-    return (SUCCESS);
+    return (EXIT_SUCCESS);
 }
