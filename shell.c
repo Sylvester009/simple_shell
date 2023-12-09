@@ -1,22 +1,5 @@
 #include "shell.h"
 
-char *read_command(void) {
-    char *command = NULL;
-    size_t bufsize = 0;
-
-    if (getline(&command, &bufsize, stdin) == -1) {
-        if (feof(stdin)) {
-            fprintf(stderr, "Shell: Exiting...\n");
-            exit(EXIT_SUCCESS);  /* Ctrl-D pressed, exit the shell */
-        } else {
-            perror("read_command");
-            exit(EXIT_FAILURE);
-        }
-    }
-
-    return (command);
-}
-
 char **splitLine(char *command) {
     int bufsize = BUFSIZE, position = 0;
     char **tokens = malloc(bufsize * sizeof(char *));
