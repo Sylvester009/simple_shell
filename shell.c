@@ -3,7 +3,6 @@
 /* Function to execute a command */
 int execute_command(char **args) {
     pid_t pid;
-    pid_t wpid;
     int status;
 
     pid = fork();
@@ -19,7 +18,7 @@ int execute_command(char **args) {
     } else {
         /* Parent process */
         do {
-            wpid = waitpid(pid, &status, WUNTRACED);
+            waitpid(pid, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     }
 
