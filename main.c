@@ -9,8 +9,17 @@ int main(void) {
         printf("$ ");
         command = read_command();
         args = splitLine(command);
-        status = exe_command(args);
+        if (args[0] != NULL) {
+            if (strcmp(args[0], "exit") == 0) {
+                free(line);
+                free(args);
+                exit(EXIT_SUCCESS);
+            }
 
+        status = exe_command(args);
+} else {
+            status = 1;  
+        }
         free(command);
         free(args);
     } while (status);
