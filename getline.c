@@ -17,7 +17,7 @@ char *_getline(void) {
             if (command_size < 0) {
                 perror("error in reading command");
                 exit(EXIT_FAILURE);
-            } else if (comman_size == 0) {
+            } else if (command_size == 0) {
                 if (command != NULL) {
                     free(command);
                 }
