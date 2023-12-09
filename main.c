@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
             return (EXIT_FAILURE);
         }
 
-        while (_getline(&command, &bufsize, file) != -1) {
+        while (getline(&command, &bufsize, file) != -1) {
             args = splitLine(command);
             exe_command(args);
 
