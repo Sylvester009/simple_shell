@@ -14,7 +14,7 @@ char *read_command(void) {
         }
     }
 
-    return line;
+    return (command);
 }
 
 char **splitLine(char *command) {
