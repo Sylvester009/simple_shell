@@ -101,7 +101,7 @@ char **splitLine(char *command) {
         exit(EXIT_FAILURE);
     }
 
-    token = strtok(line, DELIMETER);
+    token = strtok(command, DELIMETER);
     while (token != NULL) {
         tokens[position] = token;
         position++;
