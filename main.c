@@ -1,28 +1,16 @@
 #include "shell.h"
 
-int main(void) {
-    char *command;
-    char **args;
-    int status;
-
-    do {
-        printf("$ ");
-        command = read_command();
-        args = splitLine(command);
-        if (args[0] != NULL) {
-            if (strcmp(args[0], "exit") == 0) {
-                free(command);
-                free(args);
-                exit(EXIT_SUCCESS);
-            }
-
-        status = exe_command(args);
-} else {
-            status = 1;  
-        }
-        free(command);
-        free(args);
-    } while (status);
+int main(int argc, char *argv[]) {
+    if (argc == 1) {
+        /*Interactive mode*/
+        run_interactive_mode();
+    } else if (argc == 2) {
+        /* Non-interactive mode*/
+        run_non_interactive_mode(argv[1]);
+    } else {
+        fprintf(stderr, "Usage: %s [filename]\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
 
     return EXIT_SUCCESS;
 }
