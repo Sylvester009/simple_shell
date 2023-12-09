@@ -1,17 +1,17 @@
 #include "shell.h"
 
 int main(void) {
-    char *line;
+    char *command;
     char **args;
     int status;
 
     do {
         printf("$ ");
-        line = read_line();
-        args = split_line(line);
+        command = read_command();
+        args = splitLine(command);
         status = execute_command(args);
 
-        free(line);
+        free(command);
         free(args);
     } while (status);
 
