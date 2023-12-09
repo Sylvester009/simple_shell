@@ -32,8 +32,6 @@ void exe_command_nil(char *filename) {
     char **args;
     
 size_t bufsize = 0;
-    
-    int status;
 
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
@@ -43,7 +41,7 @@ size_t bufsize = 0;
 
     while (getline(&command, &bufsize, file) != -1) {
         args = splitLine(command);
-        status = exe_command(args);
+        exe_command(args);
 
         free(args);
     }
