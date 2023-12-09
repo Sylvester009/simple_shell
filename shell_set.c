@@ -5,6 +5,8 @@ void exe_command_i(void) {
     char **args;
     int status;
 
+    size_t bufsize = 0;
+
     do {
         printf("($) ");
         command = read_command();
@@ -38,9 +40,8 @@ void exe_command_nil(char *filename) {
         exit(EXIT_FAILURE);
     }
 
-    size_t bufsize = 0;
     while (getline(&command, &bufsize, file) != -1) {
-        args = splitLine(line);
+        args = splitLine(command);
         status = exe_command(args);
 
         free(args);
