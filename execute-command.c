@@ -6,11 +6,22 @@ int exe_command(char **args) {
     pid_t pid;
     int status;
     char *cmd_path;
+     char **env_variable = environ;
 
-    if (args[0] != NULL && strcmp(args[0], "exit") == 0) {
-        /* Handles the exit built-in command*/
-        printf("Shell: Exiting...\n");
-        exit(EXIT_SUCCESS);
+    if (args[0] != NULL) {
+        /* Handles built-in commands*/
+        if (strcmp(args[0], "exit") == 0) {
+            /* Handles the exit built-in command*/
+            printf("$: Exiting...\n");
+            exit(EXIT_SUCCESS);
+        } else if (strcmp(args[0], "env") == 0) {
+            /* Handle the env built-in command */
+            env_variable = environ;
+            while (*env_var != NULL) {
+                env_variable++;
+            }
+            return 1;
+        }
     }
 
     cmd_path = command_path(args[0]);
