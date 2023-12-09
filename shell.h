@@ -1,5 +1,3 @@
-
-
 #ifndef SHELL_H
 #define SHELL_H
 
@@ -11,12 +9,12 @@
 #include <string.h>
 
 #define BUFSIZE 1024
-#define DELIM " \t\r\n\a"
+#define DELIMETER " \t\r\n\a"
 
 /* Function prototypes */
-int execute_command(char **args);
-char *read_line(void);
-char **split_line(char *line);
-char *find_command_path(const char *command);
+int exe_command(char **args);
+char *read_command(void);
+char **splitLine(char *command);
+char *command_path(const char *comm);
 
 #endif /* SHELL_H */
