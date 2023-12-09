@@ -1,15 +1,15 @@
 #include "shell.h"
 
-char *read_line(void) {
-    char *line = NULL;
+char *read_command(void) {
+    char *command = NULL;
     size_t bufsize = 0;
 
-    if (getline(&line, &bufsize, stdin) == -1) {
+    if (getline(&command, &bufsize, stdin) == -1) {
         if (feof(stdin)) {
-            fprintf(stderr, "Shell: Exiting...\n");
+            fprintf(stderr, "$: Exiting...\n");
             exit(EXIT_SUCCESS);  /* Ctrl-D pressed, exit the shell */
         } else {
-            perror("read_line");
+            perror("read_command");
             exit(EXIT_FAILURE);
         }
     }
