@@ -32,7 +32,7 @@ void exe_command_nil(char *filename) {
     char **args;
     int status;
 
-  size_t bufsize = 0;
+    size_t bufsize = 0;
 
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
