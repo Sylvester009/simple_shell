@@ -53,7 +53,7 @@ char **splitLine(char *command) {
         exit(EXIT_FAILURE);
     }
 
-    token = strtok(command, DELIM);
+    token = strtok(command, DELIMETER);
     while (token != NULL) {
         tokens[position] = token;
         position++;
@@ -67,7 +67,7 @@ char **splitLine(char *command) {
             }
         }
 
-        token = strtok(NULL, DELIM);
+        token = strtok(NULL, DELIMETER);
     }
     tokens[position] = NULL;
     return tokens;
