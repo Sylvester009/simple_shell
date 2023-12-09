@@ -30,9 +30,10 @@ void exe_command_i(void) {
 void exe_command_nil(char *filename) {
     char *command;
     char **args;
+    
+size_t bufsize = 0;
+    
     int status;
-
-    size_t bufsize = 0;
 
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
