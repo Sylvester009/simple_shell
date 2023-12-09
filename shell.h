@@ -13,7 +13,7 @@
 
 /* Function prototypes */
 int exe_command(char **args);
-char *_getline(void);
+char *read_command(void);
 char **splitLine(char *command);
 char *command_path(const char *comm);
 
