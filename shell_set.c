@@ -6,7 +6,7 @@ void exe_command_i(void) {
     int status;
 
     do {
-        printf("($) ");
+        printf("$ ");
         command = read_command();
         args = splitLine(command);
 
