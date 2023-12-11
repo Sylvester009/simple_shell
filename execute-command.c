@@ -12,8 +12,7 @@ int exe_command(char **args) {
         /* Handles built-in commands*/
         if (strcmp(args[0], "exit") == 0) {
             /* Handles the exit built-in command*/
-            printf("$: Exiting...\n");
-            exit(EXIT_SUCCESS);
+            exit_shell(args);
         } else if (strcmp(args[0], "env") == 0) {
             /* Handle the env built-in command */
             env_variable = environ;
