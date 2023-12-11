@@ -16,7 +16,7 @@ char *command_path(const char *comm) {
         exit(EXIT_FAILURE);
     }
 
-    token = strtok(temp_path, ":");
+    token = _strtok(temp_path, ":");
     while (token != NULL) {
         cmd_path = malloc(strlen(token) + strlen(comm) + 2);
         if (cmd_path == NULL) {
@@ -32,7 +32,7 @@ char *command_path(const char *comm) {
         }
 
         free(cmd_path);
-        token = strtok(NULL, ":");
+        token = _strtok(NULL, ":");
     }
 
     free(temp_path);
