@@ -33,3 +33,24 @@ void exit_shell(char **args) {
         exit(EXIT_SUCCESS);
     }
 }
+
+void set_env_var(char **args) {
+    if (args[1] != NULL && args[2] != NULL && args[3] == NULL) {
+        if (setenv(args[1], args[2], 1) != 0) {
+            fprintf(stderr, "Shell: Failed to set environment variable %s\n", args[1]);
+        }
+    } else {
+        fprintf(stderr, "Shell: Usage: setenv VARIABLE VALUE\n");
+    }
+}
+
+void unset_env_var(char **args) {
+    if (args[1] != NULL && args[2] == NULL) {
+        if (unsetenv(args[1]) != 0) {
+            fprintf(stderr, "Shell: Failed to unset environment variable %s\n", args[1]);
+        }
+    } else {
+        fprintf(stderr, "Shell: Usage: unsetenv VARIABLE\n");
+    }
+}
+
