@@ -17,4 +17,7 @@ char *read_command(void);
 char **splitLine(char *command);
 char *command_path(const char *comm);
 
+int my_atoi(const char *str);
+void exit_shell(char **args);
+
 #endif /* SHELL_H */
