@@ -21,6 +21,14 @@ int exe_command(char **args) {
                 env_variable++;
             }
             return 1;
+            } else if (strcmp(args[0], "setenv") == 0) {
+            
+            set_env_var(args);
+            return 1;
+        } else if (strcmp(args[0], "unsetenv") == 0) {
+            
+            unset_env_var(args);
+            return 1;
         }
     }
 
