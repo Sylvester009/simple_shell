@@ -14,6 +14,7 @@
 /* Function prototypes */
 int exe_command(char **args);
 char *read_command(void);
+char *_strtok(char *str, const char *delim);
 char **splitLine(char *command);
 char *command_path(const char *comm);
 
