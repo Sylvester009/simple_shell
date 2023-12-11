@@ -19,6 +19,7 @@ char *read_command(void) {
 
 char *_strtok(char *str, const char *delim) {
     static char *last_token = NULL;
+    char *token_end;
 
     /* If string is not provided, continue with the last token*/
     if (str == NULL && last_token != NULL) {
@@ -34,7 +35,7 @@ char *_strtok(char *str, const char *delim) {
     }
 
     /* Find the end of the token */
-    char *token_end = str + strcspn(str, delim);
+    token_end = str + strcspn(str, delim);
 
     
     if (*token_end != '\0') {
