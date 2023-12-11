@@ -3,8 +3,11 @@
 char *read_command(void) {
     char *command = NULL;
     size_t bufsize = 0;
+    ssize_t read_input;
 
-    if (getline(&command, &bufsize, stdin) == -1) {
+    read_input = getline(&command, &bufsize, stdin);
+
+    if (read_input == -1) {
         if (feof(stdin)) {
             fprintf(stderr, "$: Exiting...\n");
             exit(EXIT_SUCCESS);  /* Ctrl-D pressed, exit the shell */
