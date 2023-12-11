@@ -17,6 +17,37 @@ char *read_command(void) {
     return (command);
 }
 
+char *_strtok(char *str, const char *delim) {
+    static char *last_token = NULL;
+
+    /* If string is not provided, continue with the last token*/
+    if (str == NULL && last_token != NULL) {
+        str = last_token;
+    }
+
+    str += strspn(str, delim);
+
+    /* If the string is empty */
+    if (*str == '\0') {
+        last_token = NULL;
+        return NULL;
+    }
+
+    /* Find the end of the token */
+    char *token_end = str + strcspn(str, delim);
+
+    
+    if (*token_end != '\0') {
+        *token_end = '\0';
+        last_token = token_end + 1;
+    } else {
+        
+        last_token = NULL;
+    }
+
+    return str;
+}
+
 char **splitLine(char *command) {
     int bufsize = BUFSIZE, position = 0;
     char **tokens = malloc(bufsize * sizeof(char *));
@@ -27,9 +58,9 @@ char **splitLine(char *command) {
         exit(EXIT_FAILURE);
     }
 
-    token = strtok(command, DELIMETER);
+    token = _strtok(command, DELIMETER);
     while (token != NULL) {
-        tokens[position] = token;
+        tokens[position] = strdup(token);
         position++;
 
         if (position >= bufsize) {
@@ -41,7 +72,7 @@ char **splitLine(char *command) {
             }
         }
 
-        token = strtok(NULL, DELIMETER);
+        token = _strtok(NULL, DELIMETER);
     }
     tokens[position] = NULL;
     return (tokens);
