@@ -6,13 +6,13 @@ char *command_path(const char *comm) {
     char *cmd_path = NULL;
 
     if (path == NULL) {
-        fprintf(stderr, "Shell: PATH environment variable not set\n");
+        fprintf(stderr, "./shell: No such file or directory\n");
         return NULL;
     }
 
     temp_path = strdup(path);
     if (temp_path == NULL) {
-        perror("error");
+        perror("./shell: No such file or directory");
         exit(EXIT_FAILURE);
     }
 
@@ -20,7 +20,7 @@ char *command_path(const char *comm) {
     while (token != NULL) {
         cmd_path = malloc(strlen(token) + strlen(comm) + 2);
         if (cmd_path == NULL) {
-            perror("error");
+            perror("./shell: No such file or directory");
             exit(EXIT_FAILURE);
         }
         sprintf(cmd_path, "%s/%s", token, comm);
@@ -36,6 +36,6 @@ char *command_path(const char *comm) {
     }
 
     free(temp_path);
-    fprintf(stderr, "Shell: Command not found in PATH: %s\n", comm);
+    fprintf(stderr, "./shell: No such file or directory %s\n", comm);
     return NULL;
 }
