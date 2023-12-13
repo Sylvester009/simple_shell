@@ -17,27 +17,27 @@ char *command_path(const char *comm) {
     }
 
     token = _strtok(temp_path, ":");
-    
-    /*Allocate cmd_path outside the loop*/
-    cmd_path = malloc(strlen(comm) + 1);
-    if (cmd_path == NULL) {
-        perror("Shell");
-        exit(EXIT_FAILURE);
-    }
 
     while (token != NULL) {
+        
+        cmd_path = malloc(strlen(token) + strlen(comm) + 2);
+        if (cmd_path == NULL) {
+            perror("Shell");
+            exit(EXIT_FAILURE);
+        }
+
         sprintf(cmd_path, "%s/%s", token, comm);
 
         if (access(cmd_path, F_OK | X_OK) == 0) {
-            /* Found the executable in the current path*/
+            
             free(temp_path);
             return cmd_path;
         }
 
+        free(cmd_path); 
         token = _strtok(NULL, ":");
     }
 
-    free(cmd_path);  /* Free only if the executable is not found*/
     free(temp_path);
     fprintf(stderr, "Shell: No such file or directory: %s\n", comm);
     return NULL;
