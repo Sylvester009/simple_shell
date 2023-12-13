@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
         FILE *file = fopen(filename, "r");
         if (file == NULL) {
-            perror("./shell: No such file or directory");
+            perror("Error opening file");
             return (EXIT_FAILURE);
         }
 
