@@ -34,6 +34,7 @@ int exe_command(char **args) {
 
     pid = fork();
     if (pid == 0) {
+        // Child process
         if (execve(cmd_path, args, environ) == -1) {
             perror("Shell");
             exit(EXIT_FAILURE);
@@ -41,6 +42,7 @@ int exe_command(char **args) {
     } else if (pid < 0) {
         perror("Shell");
     } else {
+        // Parent process
         do {
             waitpid(pid, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
