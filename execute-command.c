@@ -35,11 +35,11 @@ int exe_command(char **args) {
     pid = fork();
     if (pid == 0) {
         if (execve(cmd_path, args, environ) == -1) {
-            perror("execve");
+            perror("Shell");
             exit(EXIT_FAILURE);
         }
     } else if (pid < 0) {
-        perror("fork");
+        perror("Shell");
     } else {
         do {
             waitpid(pid, &status, WUNTRACED);
