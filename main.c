@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
         FILE *file = fopen(filename, "r");
         if (file == NULL) {
-            perror("Error");
+            perror("./shell: No such file or directory");
             return (EXIT_FAILURE);
         }
 
@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
         fclose(file);
         free(command);
     } else {
-        fprintf(stderr, "Usage: %s [filename]\n", argv[0]);
+        fprintf(stderr, "./shell: No such file or directory\n", argv[0]);
         return (EXIT_FAILURE);
     }
 
