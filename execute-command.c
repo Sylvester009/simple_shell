@@ -42,7 +42,7 @@ int exe_command(char **args) {
     } else if (pid < 0) {
         perror("Shell");
     } else {
-        // Parent process
+        /* Parent process*/
         do {
             waitpid(pid, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
