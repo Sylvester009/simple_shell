@@ -34,7 +34,7 @@ int exe_command(char **args) {
 
     pid = fork();
     if (pid == 0) {
-        // Child process
+        /* Child process*/
         if (execve(cmd_path, args, environ) == -1) {
             perror("Shell");
             exit(EXIT_FAILURE);
