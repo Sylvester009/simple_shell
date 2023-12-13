@@ -6,12 +6,13 @@ int exe_command(char **args) {
     pid_t pid;
     int status;
     char *cmd_path;
+    char **env_var;
 
     if (args[0] != NULL) {
         if (strcmp(args[0], "exit") == 0) {
             exit_shell(args);
         } else if (strcmp(args[0], "env") == 0) {
-            for (char **env_var = environ; *env_var != NULL; env_var++) {
+            for (env_var = environ; *env_var != NULL; env_var++) {
                 printf("%s\n", *env_var);
             }
             return 1;
