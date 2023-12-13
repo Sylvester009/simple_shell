@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
         fclose(file);
         free(command);
     } else {
-        fprintf(stderr, "./shell: {filename}\n", argv[0]);
+        fprintf(stderr, "Usage: %s [filename]\n", argv[0]);
         return (EXIT_FAILURE);
     }
 
