@@ -7,6 +7,7 @@ void non_interact(void) {
     char **current_args = NULL;
     int cmd_type = 0;
     size_t buffer_size = 0;
+    int exit_status = 0;
     int i;
 
     if (!isatty(STDIN_FILENO)) {
