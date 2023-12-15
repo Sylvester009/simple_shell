@@ -13,10 +13,13 @@
 #include <fcntl.h>
 #include <errno.h>
 
-#define EXTERNAL_COMMAND 1
-#define INTERNAL_COMMAND 2
-#define PATH_COMMAND 3
-#define INVALID_COMMAND -1
+#define COMMAND_EXTERNAL 1
+#define COMMAND_INTERNAL 2
+#define COMMAND_PATH 3
+#define COMMAND_INVALID -1
+
+#define STDOUT_FILENO 1
+#define F_OK 0
 
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 
@@ -47,11 +50,14 @@ void *_realloc(void *ptr, size_t old_size, size_t new_size);
 char **tokenize(char *input_string, const char *delim);
 void non_interact(void);
 void handle_interrupt(int signo);
-int parse_command(char *cmd);
 void initialize_command(char **args, int cmd_type);
 
 int _strspn(char *str, char *accept);
 int _strcspn(char *str, char *reject);
 char *_strchr(char *s, char c);
+
+int classify_command(char *cmd);
+char *command_path(char *cmd);
+char *_getenv;
 
 #endif
