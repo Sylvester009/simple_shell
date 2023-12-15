@@ -39,7 +39,7 @@ extern char **commands;
 extern char *shell_name;
 extern int status;
 
-void prompt_print(const char *string, int fd);
+void print_prompt(const char *string, int fd);
 void remove_newline(char *str);
 void remove_comment(char *input);
 char *_strtok(char *str, const char *delim, char **save_ptr);
