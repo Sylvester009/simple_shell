@@ -57,7 +57,7 @@ void exe_command(char **tokenized_args, int cmd_type)
 		print_prompt(": 1: ", STDERR_FILENO);
 		print_prompt(tokenized_args[0], STDERR_FILENO);
 		print_prompt(": not found\n", STDERR_FILENO);
-		status = 127;
+		exit_status = 127;
     }
 }
 
