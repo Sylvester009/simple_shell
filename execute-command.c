@@ -57,7 +57,7 @@ void exe_command(char **tokenized_args, int cmd_type)
         print_prompt(shell_alias, STDERR_FILENO);
 		print_prompt(": 1: ", STDERR_FILENO);
 		print_prompt(tokenized_args[0], STDERR_FILENO);
-		print_prompt("shell: No file or directory\n", STDERR_FILENO);
+		print_prompt(": No such command\n", STDERR_FILENO);
 		status = 127;
     }
 }
