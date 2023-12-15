@@ -37,7 +37,7 @@ int main(int argc __attribute__((unused)), char **argv) {
         command = tokenizer(input_line, ";");
 
         for (i = 0; command[i] != NULL; i++) {
-            current_args = tokenizer(command[i], " ");
+            current_args = tokenize(command[i], " ");
             if (current_args[0] == NULL) {
                 free(current_args);
                 break;
