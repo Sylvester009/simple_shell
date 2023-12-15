@@ -91,7 +91,7 @@ char **tokenize(char *input_string, const char *delim) {
     while (token != NULL) {
         tokens = _realloc(tokens, sizeof(*tokens) * num_tokens, sizeof(*tokens) * (num_tokens + 1));
         tokens[num_tokens] = token;
-        token = _strtok(NULL, delim, &save_ptr);  // Pass the same save_ptr across calls
+        token = _strtok(NULL, delim, &save_ptr);  
         num_tokens++;
     }
 
