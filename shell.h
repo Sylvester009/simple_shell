@@ -32,7 +32,7 @@ typedef struct {
 } CommandFunction;
 
 extern char **environ;
-extern char *line;
+extern char *input_line;
 extern char **command;
 extern char *shell_alias;
 extern int status;
