@@ -48,8 +48,8 @@ void non_interact(void);
 void handle_interrupt(int signo);
 void initialize_command(char **args, int cmd_type);
 
-int _strspn(char *str, char *accept);
-int _strcspn(char *str, char *reject);
+int _strspn(char *str, const char *accept);
+int _strcspn(char *str, const char *reject);
 char *_strchr(char *s, char c);
 void _strcpy(char *src, char *dest);
 int _strcmp(char *str1, char *str2);
