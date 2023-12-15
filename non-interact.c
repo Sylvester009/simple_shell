@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * non_interactive - handles non-interactive mode
+ * non_interact - handles non-interactive mode
  */
 void non_interact(void) {
     char **current_args = NULL;
