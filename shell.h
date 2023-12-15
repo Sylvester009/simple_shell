@@ -39,7 +39,7 @@ typedef struct map
 extern char **environ;
 extern char *line;
 extern char **commands;
-extern char *shell_name;
+extern char *shell_alias;
 extern int status;
 
 void print_prompt(const char *string, int fd);
@@ -58,6 +58,11 @@ char *_strchr(char *s, char c);
 
 int classify_command(char *cmd);
 char *command_path(char *cmd);
-char *_getenv;
+char *_getenv();
+
+void initializer(char **current_args, int type_cmd);
+void exe_command(char **tokenized_args, int cmd_type);
+void execute_external_command(char **args);
+void execute_path_command(char **args)
 
 #endif
