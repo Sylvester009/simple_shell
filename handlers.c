@@ -48,3 +48,20 @@ void remove_newline(char *str) {
     }
 }
 
+/**
+ * remove_comment - removes everything after a '#' character, including the '#' character
+ * @input: input to be modified
+ */
+void remove_comment(char *input) {
+    int i = 0;
+
+    while (input[i] != '\0') {
+        if (input[i] == '#') {
+            input[i] = '\0';
+            break;
+        }
+        i++;
+    }
+}
+
+
