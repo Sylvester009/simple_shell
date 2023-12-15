@@ -31,3 +31,20 @@ void handle_interrupt(int signum)
 	if (signum == SIGINT)
 		print("\n$ ", STDIN_FILENO);
 }
+
+/**
+ * remove_newline - removes newline characters from a string
+ * @str: string to be modified
+ */
+void remove_newline(char *str) {
+    int i = 0;
+
+    while (str[i] != '\0') {
+        if (str[i] == '\n' || str[i] == '\r') {
+            str[i] = '\0';
+            break;
+        }
+        i++;
+    }
+}
+
