@@ -1,5 +1,7 @@
 #include "shell.h"
 
+int status;
+
 /**
  * initializer - intializes execution
  * @current_args: Array representing the current command
