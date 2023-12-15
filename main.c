@@ -62,5 +62,11 @@ int main(int argc __attribute__((unused)), char **argv) {
  * @fd: file descriptor to print to
  */
 void print_prompt(const char *prompt, int fd) {
-    write(fd, prompt, _strlen(prompt));
+    size_t len = 0;
+
+    while (string[len] != '\0') {
+        len++;
+    }
+
+    write(fd, string, len);
 }
