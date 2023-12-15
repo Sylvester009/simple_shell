@@ -20,7 +20,7 @@ void initializer(char **current_args, int type_cmd)
         else
         {
             waitpid(pid, &exit_status, 0);
-            exit_status >>= 8;
+            status >>= 8;
         }
     }
     else
