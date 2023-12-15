@@ -1,6 +1,5 @@
 #include "shell.h"
 
-
 /**
  * initializer - intializes execution
  * @current_args: Array representing the current command
@@ -57,7 +56,7 @@ void exe_command(char **tokenized_args, int cmd_type)
 		print_prompt(": 1: ", STDERR_FILENO);
 		print_prompt(tokenized_args[0], STDERR_FILENO);
 		print_prompt(": not found\n", STDERR_FILENO);
-		exit_status = 127;
+		status = 127;
     }
 }
 
