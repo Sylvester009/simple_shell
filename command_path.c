@@ -118,8 +118,8 @@ void (*command_func(char *command))(char **)
 {
     int i;
     CommandFunction command_mapping[] = {
-        {"env", env},
-        {"exit", quit}
+        {"env", print_environment},
+        {"exit", shell_exit}
         
     };
 
