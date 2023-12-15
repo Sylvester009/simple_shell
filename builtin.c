@@ -34,7 +34,7 @@ void shell_exit(char **args)
     {
         free(args);
         free(input_line);
-        /*free(cmd_args);*/
+        free(cmd_args);
         exit(exit_status);
     }
     else if (num_args == 2)
@@ -52,7 +52,7 @@ void shell_exit(char **args)
         {
             free(input_line);
             free(args);
-            /*free(cmd_args);*/
+            free(cmd_args);
             exit(exit_status);
         }
     }
