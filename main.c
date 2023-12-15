@@ -34,7 +34,7 @@ int main(int argc __attribute__((unused)), char **argv) {
 
         remove_newline(input_line);
         remove_comment(input_line);
-        command = tokenizer(input_line, ";");
+        command = tokenize(input_line, ";");
 
         for (i = 0; command[i] != NULL; i++) {
             current_args = tokenize(command[i], " ");
@@ -64,9 +64,9 @@ int main(int argc __attribute__((unused)), char **argv) {
 void print_prompt(const char *prompt, int fd) {
     size_t len = 0;
 
-    while (string[len] != '\0') {
+    while (prompt[len] != '\0') {
         len++;
     }
 
-    write(fd, string, len);
+    write(fd, prompt, len);
 }
