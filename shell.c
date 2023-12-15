@@ -9,7 +9,8 @@
  *
  * Return: The next available token
  */
-char *_strtok(char *str, const char *delim, char **save_ptr) {
+char *_strtok(char *str, const char *delim) {
+    char **save_ptr;
     char *token_start;
     char *token_end;
 
