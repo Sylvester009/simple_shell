@@ -45,7 +45,7 @@ void shell_exit(char **args)
         if (exit_status == -1)
         {
             print_prompt(shell_alias, STDERR_FILENO);
-            print_prompt(": 1: exit: Illegal number: ", STDERR_FILENO);
+            print_prompt(": 1: exit: negative number: ", STDERR_FILENO);
             print_prompt(args[1], STDERR_FILENO);
             print_prompt("\n", STDERR_FILENO);
             exit_status = 2;
