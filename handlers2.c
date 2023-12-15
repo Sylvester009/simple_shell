@@ -7,7 +7,7 @@
  *
  * Return: no of bytes in the initial segment of `str` which are part of `accept`
  */
-int _strspn(char *str, char *accept) {
+int _strspn(char *str, const char *accept) {
     int i = 0;
     int match = 0;
 
@@ -27,7 +27,7 @@ int _strspn(char *str, char *accept) {
  *
  * Return: index at which a char in `str` exists in `reject`
  */
-int _strcspn(char *str, char *reject) {
+int _strcspn(char *str, const char *reject) {
     int len = 0, i;
 
     for (i = 0; str[i] != '\0'; i++) {
