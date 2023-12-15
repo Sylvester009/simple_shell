@@ -39,41 +39,15 @@ extern char **commands;
 extern char *shell_name;
 extern int status;
 
-/*main*/
-extern void non_interactive(void);
-extern void initializer(char **current_command, int type_command);
-
-/*helpers*/
-void print(char *, int);
-char **tokenizer(char *, char *);
-void remove_newline(char *);
-int _strlen(char *);
-void _strcpy(char *, char *);
-
-/*helpers2*/
-int _strcmp(char *, char *);
-char *_strcat(char *, char *);
-int _strspn(char *, char *);
-int _strcspn(char *, char *);
-char *_strchr(char *, char);
-
-/*helpers3*/
-char *_strtok_r(char *, char *, char **);
-int _atoi(char *);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-void ctrl_c_handler(int);
-void remove_comment(char *);
-
-/*utils*/
-int parse_command(char *);
-void execute_command(char **, int);
-char *check_path(char *);
-void (*get_func(char *))(char **);
-char *_getenv(char *);
-
-/*built_in*/
-void env(char **);
-void quit(char **);
-
+void prompt_print(const char *string, int fd);
+void remove_newline(char *str);
+void remove_comment(char *input);
+char *_strtok(char *str, const char *delim, char **save_ptr);
+void *_realloc(void *ptr, size_t old_size, size_t new_size);
+char **tokenize(char *input_string, const char *delim);
+void non_interact(void);
+void handle_interrupt(int signo);
+int parse_command(char *cmd);
+void initialize_command(char **args, int cmd_type);
 
 #endif
