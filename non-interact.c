@@ -30,6 +30,6 @@ void non_interact(void) {
         }
 
         free(input_line);
-        exit(exit_status);
+        exit(status);
     }
 }
