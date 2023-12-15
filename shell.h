@@ -50,4 +50,8 @@ void handle_interrupt(int signo);
 int parse_command(char *cmd);
 void initialize_command(char **args, int cmd_type);
 
+int _strspn(char *str, char *accept);
+int _strcspn(char *str, char *reject);
+char *_strchr(char *s, char c);
+
 #endif
