@@ -120,10 +120,9 @@ void (*command_func(char *command))(char **)
     CommandFunction command_mapping[] = {
         {"env", print_environment},
         {"exit", shell_exit}
-        
     };
 
-    for (i = 0; i < sizeof(command_mapping) / sizeof(command_mapping[0]); i++)
+    for (i = 0; i < (int)(sizeof(command_mapping) / sizeof(command_mapping[0])); i++)
     {
         if (_strcmp(command, command_mapping[i].name) == 0)
             return (command_mapping[i].func);
