@@ -19,7 +19,7 @@ void initializer(char **current_args, int type_cmd)
             exe_command(current_args, type_cmd);
         else
         {
-            waitpid(pid, &exit_status, 0);
+            waitpid(pid, &status, 0);
             status >>= 8;
         }
     }
