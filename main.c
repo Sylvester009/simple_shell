@@ -3,7 +3,7 @@
 char **command = NULL;
 char *input_line = NULL;
 char *shell_alias = NULL;
-int status = 0;
+int exit_status = 0;
 
 /**
  * main - entry point for the shell program
@@ -29,7 +29,7 @@ int main(int argc __attribute__((unused)), char **argv) {
 
         if (getline(&input_line, &buffer_size, stdin) == -1) {
             free(input_line);
-            exit(status);
+            exit(exit_status);
         }
 
         remove_newline(input_line);
@@ -52,7 +52,7 @@ int main(int argc __attribute__((unused)), char **argv) {
     }
 
     free(input_line);
-    return (status);
+    return (exit_status);
 }
 
 
