@@ -29,7 +29,7 @@ int main(int argc __attribute__((unused)), char **argv) {
 
         if (getline(&input_line, &buffer_size, stdin) == -1) {
             free(input_line);
-            exit(exit_status);
+            exit(status);
         }
 
         remove_newline(input_line);
