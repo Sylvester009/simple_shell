@@ -45,7 +45,7 @@ int _strcspn(char *str, const char *reject) {
  *
  * Return: pointer to the first occurrence of `c` in `s`
  */
-char *_strchr(const char *s, char c) {
+const char *_strchr(const char *s, char c) {
     int i = 0;
 
     for (; s[i] != c && s[i] != '\0'; i++)
@@ -55,6 +55,7 @@ char *_strchr(const char *s, char c) {
     else
         return NULL;
 }
+
 
 /**
  * _strcpy - Copies a string to another buffer
