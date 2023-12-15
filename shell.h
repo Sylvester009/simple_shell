@@ -24,21 +24,16 @@
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 
 /**
- *struct map - a struct that maps a command name to a function 
- *
- *@command_name: name of the command
- *@func: the function that executes the command
+ * command_function - Represents a function associated with a command
  */
-
-typedef struct map
-{
-	char *command_name;
-	void (*func)(char **command);
-} function_map;
+typedef struct {
+    char *name;
+    void (*func)(char **args);
+} CommandFunction;
 
 extern char **environ;
 extern char *line;
-extern char **commands;
+extern char **command;
 extern char *shell_alias;
 extern int status;
 
@@ -59,6 +54,7 @@ char *_strchr(char *s, char c);
 int classify_command(char *cmd);
 char *command_path(char *cmd);
 char *_getenv();
+void (*command_func(char *command))(char **);
 
 void initializer(char **current_args, int type_cmd);
 void exe_command(char **tokenized_args, int cmd_type);
