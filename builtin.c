@@ -1,0 +1,63 @@
+#include "shell.h"
+
+/**
+ * print_environment - Prints the current environment
+ * @args: Command arguments (unused)
+ *
+ * Return: void
+ */
+void print_environment(char **args __attribute__((unused)))
+{
+    int i;
+
+    for (i = 0; environ[i] != NULL; i++)
+    {
+        print_prompt(environ[i], STDOUT_FILENO);
+        print_prompt("\n", STDOUT_FILENO);
+    }
+}
+
+/**
+ * shell_exit - Exits the shell
+ * @args: Command arguments
+ *
+ * Return: void
+ */
+void shell_exit(char **args)
+{
+    int num_args = 0, exit_status;
+
+    for (; args[num_args] != NULL; num_args++)
+        ;
+
+    if (num_args == 1)
+    {
+        free(args);
+        free(input_line);
+        free(cmd_args);
+        exit(exit_status);
+    }
+    else if (num_args == 2)
+    {
+        exit_status = _atoi(args[1]);
+        if (exit_status == -1)
+        {
+            print_prompt(shell_alias, STDERR_FILENO);
+            print_prompt(": 1: exit: Illegal number: ", STDERR_FILENO);
+            print_prompt(args[1], STDERR_FILENO);
+            print_prompt("\n", STDERR_FILENO);
+            exit_status = 2;
+        }
+        else
+        {
+            free(input_line);
+            free(args);
+            free(cmd_args);
+            exit(exit_status);
+        }
+    }
+    else
+    {
+        custom_print("$: exit doesn't take more than one argument\n", STDERR_FILENO);
+    }
+}
