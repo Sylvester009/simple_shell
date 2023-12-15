@@ -21,7 +21,7 @@ void non_interact(void) {
                     break;
                 }
 
-                cmd_type = parse_command(current_args[0]);
+                cmd_type = classify_command(current_args[0]);
                 initialize_command(current_args, cmd_type);
                 free(current_args);
             }
