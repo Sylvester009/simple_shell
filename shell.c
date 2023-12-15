@@ -16,14 +16,14 @@ char *_strtok(char *str, const char *delim, char **save_ptr) {
     if (str == NULL)
         str = *save_ptr;
 
-    token_start = str + strspn(str, delim);
+    token_start = str + _strspn(str, delim);
 
     if (*token_start == '\0') {
         *save_ptr = token_start;
         return (NULL);
     }
 
-    token_end = token_start + strcspn(token_start, delim);
+    token_end = token_start + _strcspn(token_start, delim);
 
     if (*token_end == '\0') {
         *save_ptr = token_end;
