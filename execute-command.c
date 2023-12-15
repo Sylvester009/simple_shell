@@ -1,53 +1,92 @@
 #include "shell.h"
 
-extern char **environ;
 
-int exe_command(char **args) {
+/**
+ * initializer - intializes execution
+ * @current_args: Array representing the current command
+ * @type_cmd: Parsed command type
+ *
+ * Return: void function
+ */
+void initializer(char **current_args, int type_cmd)
+{
     pid_t pid;
-    int status;
-    char *cmd_path;
-    char **env_var;
 
-    if (args[0] != NULL) {
-        if (strcmp(args[0], "exit") == 0) {
-            exit_shell(args);
-        } else if (strcmp(args[0], "env") == 0) {
-            for (env_var = environ; *env_var != NULL; env_var++) {
-                printf("%s\n", *env_var);
-            }
-            return 1;
-        } else if (strcmp(args[0], "setenv") == 0) {
-            set_env_var(args);
-            return 1;
-        } else if (strcmp(args[0], "unsetenv") == 0) {
-            unset_env_var(args);
-            return 1;
+    if (type_cmd == COMMAND_EXTERNAL || type_cmd == COMMAND_PATH)
+    {
+        pid = fork();
+        if (pid == 0)
+            exe_command(current_args, type_cmd);
+        else
+        {
+            waitpid(pid, &exit_status, 0);
+            exit_status >>= 8;
         }
     }
+    else
+        exe_command(current_args, type_cmd);
+}
 
-    cmd_path = command_path(args[0]);
+/**
+ * exe_command - Executes the specified command based on its type
+ * @cmd_args: Array of command arguments
+ * @cmd_type: Type of the command (EXTERNAL_COMMAND, INTERNAL_COMMAND, PATH_COMMAND)
+ *
+ * Return: void function
+ */
+void exe_command(char **tokenized_args, int cmd_type)
+{
+    void (*cmd_func)(char **);
 
-    if (cmd_path == NULL) {
-        fprintf(stderr, "Shell: Command not found: %s\n", args[0]);
-        return 1;
+    if (cmd_type == COMMAND_EXTERNAL)
+    {
+        execute_external_command(tokenized_args);
     }
-
-    pid = fork();
-    if (pid == 0) {
-        /* Child process*/
-        if (execve(cmd_path, args, environ) == -1) {
-            perror("Shell");
-            exit(EXIT_FAILURE);
-        }
-    } else if (pid < 0) {
-        perror("Shell");
-    } else {
-        /* Parent process*/
-        do {
-            waitpid(pid, &status, WUNTRACED);
-        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+    else if (cmd_type == COMMAND_PATH)
+    {
+        execute_path_command(tokenized_args);
     }
+    else if (cmd_type == COMMAND_INTERNAL)
+    {
+        cmd_func = command_func(tokenized_args[0]);
+        cmd_func(tokenized_args);
+    }
+    else if (cmd_type == COMMAND_INVALID)
+    {
+        print_prompt(shell_alias, STDERR_FILENO);
+		print_prompt(": 1: ", STDERR_FILENO);
+		print_prompt(tokenized_args[0], STDERR_FILENO);
+		print_prompt(": not found\n", STDERR_FILENO);
+		status = 127;
+    }
+}
 
-    free(cmd_path);
-    return 1;
+/**
+ * execute_external_command - Executes an external command
+ * @args: Array of command arguments
+ *
+ * Return: void
+ */
+void execute_external_command(char **args)
+{
+    if (execve(args[0], args, NULL) == -1)
+    {
+        perror(_getenv("PWD"));
+        exit(2);
+    }
+}
+
+/**
+ * execute_path_command - Executes a command found in the PATH
+ * @args: Array of command arguments
+ *
+ * Return: void
+ */
+void execute_path_command(char **args)
+{
+    if (execve(command_path(args[0]), args, NULL) == -1)
+    {
+        perror(_getenv("PWD"));
+        exit(2);
+    }
 }
