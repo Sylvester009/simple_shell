@@ -109,12 +109,12 @@ char *_getenv(char *var_name)
 }
 
 /**
- * cmd_func - Retrieves a function based on the command given and a mapping
+ * command_func - Retrieves a function based on the command given and a mapping
  * @command: String to check against the mapping
  *
  * Return: Pointer to the proper function, or NULL on fail
  */
-void (*cmd_func(char *command))(char **)
+void (*command_func(char *command))(char **)
 {
     int i;
     CommandFunction command_mapping[] = {
