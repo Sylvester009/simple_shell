@@ -21,13 +21,13 @@ size_t _strlen(const char *string)
 }
 
 /**
- * ctrl_c_handler - handles the signal raised by CTRL-C
+ * handle_interrupt - handles the signal raised by CTRL-C
  * @signum: signal number
  *
  * Return: void
  */
-void ctrl_c_handler(int signum)
+void handle_interrupt(int signum)
 {
 	if (signum == SIGINT)
-		print("\n($) ", STDIN_FILENO);
+		print("\n$ ", STDIN_FILENO);
 }
