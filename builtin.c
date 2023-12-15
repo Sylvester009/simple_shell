@@ -51,7 +51,7 @@ void shell_exit(char **args)
         else
         {
             free(input_line);
-            free(args);
+            free(cmd_args);
             free(current_args);
             exit(exit_status);
         }
