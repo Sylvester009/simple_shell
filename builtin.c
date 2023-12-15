@@ -61,3 +61,28 @@ void shell_exit(char **args)
         custom_print("$: exit doesn't take more than one argument\n", STDERR_FILENO);
     }
 }
+
+/**
+ * _atoi - Changes a string to an integer
+ * @str: The string to be changed
+ *
+ * Return: The converted int
+ */
+int _atoi(char *str)
+{
+    unsigned int result = 0;
+
+    do {
+        if (*str == '-')
+            return -1;
+        else if ((*str < '0' || *str > '9') && *str != '\0')
+            return -1;
+        else if (*str >= '0' && *str <= '9')
+            result = (result * 10) + (*str - '0');
+        else if (result > 0)
+            break;
+    } while (*str++);
+
+    return result;
+}
+
