@@ -42,7 +42,7 @@ int main(int argc __attribute__((unused)), char **argv) {
                 free(current_args);
                 break;
             }
-            command_type = parse_command(current_args[0]);
+            command_type = classify_command(current_args[0]);
 
             /* initialize command */
             initialize_command(current_args, command_type);
