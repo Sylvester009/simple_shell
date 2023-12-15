@@ -12,10 +12,10 @@ void non_interact(void) {
         while (getline(&input_line, &buffer_size, stdin) != -1) {
             remove_newline(input_line);
             remove_comment(input_line);
-            cmd_args = tokenizer(input_line, ";");
+            cmd_args = tokenize(input_line, ";");
 
             for (int i = 0; cmd_args[i] != NULL; i++) {
-                current_args = tokenizer(cmd_args[i], " ");
+                current_args = tokenize(cmd_args[i], " ");
                 if (current_args[0] == NULL) {
                     free(current_args);
                     break;
