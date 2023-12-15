@@ -8,7 +8,7 @@
  *
  * Return: void function
  */
-void initializer(char **current_args, int type_cmd)
+void initialize_command(char **current_args, int type_cmd)
 {
     pid_t pid;
 
