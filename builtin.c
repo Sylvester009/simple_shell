@@ -1,5 +1,7 @@
 #include "shell.h"
 
+char **cmd_args;
+
 /**
  * print_environment - Prints the current environment
  * @args: Command arguments (unused)
