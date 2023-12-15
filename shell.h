@@ -55,6 +55,7 @@ void _strcpy(char *src, char *dest);
 int _strcmp(char *str1, char *str2);
 char *_strcat(char *dest, char *src);
 int _atoi(char *str);
+size_t _strlen(const char *string);
 
 int classify_command(char *cmd);
 char *command_path(char *cmd);
