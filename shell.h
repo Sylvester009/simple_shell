@@ -35,7 +35,7 @@ extern char **environ;
 extern char *input_line;
 extern char **command;
 extern char *shell_alias;
-extern int status;
+extern int exit_status;
 
 void print_prompt(const char *string, int fd);
 void remove_newline(char *str);
