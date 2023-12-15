@@ -24,7 +24,7 @@ int main(int argc __attribute__((unused)), char **argv) {
     shell_alias = argv[0];
 
     while (1) {
-        non_interactive();
+        non_interact();
         print_prompt("$ ", STDOUT_FILENO);
 
         if (getline(&input_line, &buffer_size, stdin) == -1) {
