@@ -41,7 +41,7 @@ extern int status;
 void print_prompt(const char *string, int fd);
 void remove_newline(char *str);
 void remove_comment(char *input);
-char *_strtok(char *str, const char *delim, char **save_ptr;);
+char *_strtok(char *str, const char *delim, char **save_ptr);
 void *_realloc(void *ptr, size_t old_size, size_t new_size);
 char **tokenize(char *input_string, const char *delim);
 void non_interact(void);
