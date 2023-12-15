@@ -35,7 +35,7 @@ void shell_exit(char **args)
         free(args);
         free(input_line);
         free(cmd_args);
-        exit(exit_status);
+        exit(status);
     }
     else if (num_args == 2)
     {
@@ -46,14 +46,14 @@ void shell_exit(char **args)
             print_prompt(": 1: exit: Illegal number: ", STDERR_FILENO);
             print_prompt(args[1], STDERR_FILENO);
             print_prompt("\n", STDERR_FILENO);
-            exit_status = 2;
+            status = 2;
         }
         else
         {
             free(input_line);
             free(args);
             free(cmd_args);
-            exit(exit_status);
+            exit(status);
         }
     }
     else
