@@ -1,54 +1,66 @@
 #include "shell.h"
 
-int main(int argc, char *argv[]) {
-    if (argc == 1) {
-        
-        char *command;
-        char **args;
-        int status;
+char **command = NULL;
+char *input_line = NULL;
+char *shell_alias = NULL;
+int status = 0;
 
+/**
+ * main - entry point for the shell program
+ * @argc: number of arguments
+ * @argv: program arguments
+ *
+ * Implements a simple shell with basic commands.
+ * Handles signals, parses input, and executes commands.
+ * Returns: 0 on success
+ */
 
-        do {
-            printf("$ ");
-            command = read_command();
-            args = splitLine(command);
+int main(int argc __attribute__((unused)), char **argv) {
+    char **current_args = NULL;
+    int i, command_type = 0;
+    size_t buffer_size = 0;
 
-            if (args[0] != NULL) {
-                status = exe_command(args);
-            } else {
-                status = 1;  /* Empty command, continue the loop*/
+    signal(SIGINT, handle_interrupt);
+    shell_alias = argv[0];
+
+    while (1) {
+        non_interactive();
+        print_prompt("$ ", STDOUT_FILENO);
+
+        if (getline(&input_line, &buffer_size, stdin) == -1) {
+            free(input_line);
+            exit(exit_status);
+        }
+
+        remove_newline(input_line);
+        remove_comment(input_line);
+        command = tokenizer(input_line, ";");
+
+        for (i = 0; command[i] != NULL; i++) {
+            current_args = tokenizer(command[i], " ");
+            if (current_args[0] == NULL) {
+                free(current_args);
+                break;
             }
+            command_type = parse_command(current_args[0]);
 
-            free(command);
-            free(args);
-        } while (status);
-    } else if (argc == 2) {
-       
-        char *filename = argv[1];
-        char *command;
-        char **args;
-
-        size_t bufsize = 0;
-
-        FILE *file = fopen(filename, "r");
-        if (file == NULL) {
-            perror("Error opening file");
-            return (EXIT_FAILURE);
+            /* initialize command */
+            initialize_command(current_args, command_type);
+            free(current_args);
         }
-
-        while (getline(&command, &bufsize, file) != -1) {
-            args = splitLine(command);
-            exe_command(args);
-
-            free(args);
-        }
-
-        fclose(file);
         free(command);
-    } else {
-        fprintf(stderr, "Usage: %s [filename]\n", argv[0]);
-        return (EXIT_FAILURE);
     }
 
-    return (EXIT_SUCCESS);
+    free(input_line);
+    return (status);
+}
+
+
+/**
+ * print_prompt - prints the shell prompt
+ * @prompt: the prompt string to be printed
+ * @fd: file descriptor to print to
+ */
+void print_prompt(const char *prompt, int fd) {
+    write(fd, prompt, strlen(prompt));
 }
