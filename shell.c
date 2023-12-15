@@ -79,15 +79,19 @@ void *_realloc(void *ptr, size_t old_size, size_t new_size) {
  *
  * Return: array of tokens
  */
+
 char **tokenize(char *input_string, const char *delim) {
     int num_tokens = 0;
     char **tokens = NULL;
-    char *token = _strtok(input_string, delim);
+    char *token;
+    static char *save_ptr;  
+
+    token = _strtok(input_string, delim, &save_ptr);
 
     while (token != NULL) {
         tokens = _realloc(tokens, sizeof(*tokens) * num_tokens, sizeof(*tokens) * (num_tokens + 1));
         tokens[num_tokens] = token;
-        token = _strtok(NULL, delim);
+        token = _strtok(NULL, delim, &save_ptr);  // Pass the same save_ptr across calls
         num_tokens++;
     }
 
