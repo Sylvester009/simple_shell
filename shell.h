@@ -63,6 +63,6 @@ void (*command_func(char *command))(char **);
 void initializer(char **current_args, int type_cmd);
 void exe_command(char **tokenized_args, int cmd_type);
 void execute_external_command(char **args);
-void execute_path_command(char *)
+void execute_path_command(char **args);
 
 #endif
