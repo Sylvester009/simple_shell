@@ -21,7 +21,7 @@
 #define STDOUT_FILENO 1
 #define F_OK 0
 
-#define min(x, y) (((x) < (y)) ? (x) : (y))
+/*#define min(x, y) (((x) < (y)) ? (x) : (y))*/
 
 /**
  * command_function - Represents a function associated with a command
@@ -41,7 +41,7 @@ extern int status;
 void print_prompt(const char *string, int fd);
 void remove_newline(char *str);
 void remove_comment(char *input);
-char *_strtok(char *str, const char *delim, char **save_ptr);
+char *_strtok(char *str, const char *delim);
 void *_realloc(void *ptr, size_t old_size, size_t new_size);
 char **tokenize(char *input_string, const char *delim);
 void non_interact(void);
