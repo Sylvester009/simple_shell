@@ -29,7 +29,7 @@ size_t _strlen(const char *string)
 void handle_interrupt(int signum)
 {
 	if (signum == SIGINT)
-		print_promt("\n$ ", STDIN_FILENO);
+		print_prompt("\n$ ", STDIN_FILENO);
 }
 
 /**
