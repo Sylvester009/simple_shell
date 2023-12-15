@@ -1,83 +1,98 @@
 #include "shell.h"
 
-char *read_command(void) {
-    char *command = NULL;
-    size_t bufsize = 0;
-    ssize_t read_input;
 
-    read_input = getline(&command, &bufsize, stdin);
-
-    if (read_input == -1) {
-        if (feof(stdin)) {
-            fprintf(stderr, "$: Exiting...\n");
-            exit(EXIT_SUCCESS);  /* Ctrl-D pressed, exit the shell */
-        } else {
-            perror("read_command");
-            exit(EXIT_FAILURE);
-        }
-    }
-
-    return (command);
-}
-
-char *_strtok(char *str, const char *delim) {
-    static char *last_token = NULL;
+/**
+ * _strtok - tokenizes a string
+ * @str: string to be tokenized
+ * @delim: delimiter to be used to tokenize the string
+ * @save_ptr: pointer to be used to keep track of the next token
+ *
+ * Return: The next available token
+ */
+char *_strtok(char *str, const char *delim, char **save_ptr) {
+    char *token_start;
     char *token_end;
 
-    /* If string is not provided, continue with the last token*/
-    if (str == NULL && last_token != NULL) {
-        str = last_token;
+    if (str == NULL)
+        str = *save_ptr;
+
+    token_start = str + strspn(str, delim);
+
+    if (*token_start == '\0') {
+        *save_ptr = token_start;
+        return (NULL);
     }
 
-    str += strspn(str, delim);
+    token_end = token_start + strcspn(token_start, delim);
 
-    /* If the string is empty */
-    if (*str == '\0') {
-        last_token = NULL;
-        return NULL;
+    if (*token_end == '\0') {
+        *save_ptr = token_end;
+        return token_start;
     }
 
-    /* Find the end of the token */
-    token_end = str + strcspn(str, delim);
+    *token_end = '\0';
+    *save_ptr = token_end + 1;
 
-    
-    if (*token_end != '\0') {
-        *token_end = '\0';
-        last_token = token_end + 1;
-    } else {
-        
-        last_token = NULL;
-    }
-
-    return str;
+    return token_start;
 }
 
-char **splitLine(char *command) {
-    int bufsize = BUFSIZE, position = 0;
-    char **tokens = malloc(bufsize * sizeof(char *));
-    char *token;
+/**
+ * _realloc - reallocates a memory block
+ * @ptr: pointer to the memory previously allocated with a call to malloc
+ * @old_size: size of ptr
+ * @new_size: size of the new memory to be allocated
+ *
+ * Return: pointer to the address of the new memory block
+ */
+void *_realloc(void *ptr, size_t old_size, size_t new_size) {
+    void *new_block;
+    size_t i;
 
-    if (!tokens) {
-        perror("splitLine");
-        exit(EXIT_FAILURE);
-    }
-
-    token = _strtok(command, DELIMETER);
-    while (token != NULL) {
-        tokens[position] = strdup(token);
-        position++;
-
-        if (position >= bufsize) {
-            bufsize += BUFSIZE;
-            tokens = realloc(tokens, bufsize * sizeof(char *));
-            if (!tokens) {
-                perror("splitLine");
-                exit(EXIT_FAILURE);
+    if (ptr == NULL) {
+        new_block = malloc(new_size);
+        return new_block;
+    } else if (new_size == old_size) {
+        return ptr;
+    } else if (new_size == 0 && ptr != NULL) {
+        free(ptr);
+        return NULL;
+    } else {
+        new_block = malloc(new_size);
+        if (new_block != NULL) {
+            for (i = 0; i < old_size && i < new_size; i++) {
+                *((char *)new_block + i) = *((char *)ptr + i);
             }
+            free(ptr);
+            return new_block;
+        } else {
+            return NULL;
         }
-
-        token = _strtok(NULL, DELIMETER);
     }
-    tokens[position] = NULL;
-    return (tokens);
+}
+
+
+
+/**
+ * tokenize - tokenizes input and stores it into an array
+ * @input_string: input to be parsed
+ * @delim: delimiter to be used, needs to be one character string
+ *
+ * Return: array of tokens
+ */
+char **tokenize(char *input_string, const char *delim) {
+    int num_tokens = 0;
+    char **tokens = NULL;
+    char *token = _strtok(input_string, delim);
+
+    while (token != NULL) {
+        tokens = _realloc(tokens, sizeof(*tokens) * num_tokens, sizeof(*tokens) * (num_tokens + 1));
+        tokens[num_tokens] = token;
+        token = _strtok(NULL, delim);
+        num_tokens++;
+    }
+
+    tokens = _realloc(tokens, sizeof(*tokens) * num_tokens, sizeof(*tokens) * (num_tokens + 1));
+    tokens[num_tokens] = NULL;
+
+    return tokens;
 }
