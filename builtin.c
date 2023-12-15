@@ -34,7 +34,7 @@ void shell_exit(char **args)
     {
         free(args);
         free(input_line);
-        free(cmd_args);
+        free(current_args);
         exit(exit_status);
     }
     else if (num_args == 2)
@@ -52,13 +52,13 @@ void shell_exit(char **args)
         {
             free(input_line);
             free(args);
-            free(cmd_args);
+            free(current_args);
             exit(exit_status);
         }
     }
     else
     {
-        custom_print("$: exit doesn't take more than one argument\n", STDERR_FILENO);
+        print_prompt("$: exit doesn't take more than one argument\n", STDERR_FILENO);
     }
 }
 
