@@ -50,7 +50,7 @@ void initialize_command(char **args, int cmd_type);
 
 int _strspn(char *str, const char *accept);
 int _strcspn(char *str, const char *reject);
-char *_strchr(const char *s, char c);
+const char *_strchr(const char *s, char c);
 void _strcpy(char *src, char *dest);
 int _strcmp(char *str1, char *str2);
 char *_strcat(char *dest, char *src);
